@@ -17,21 +17,18 @@ def explain_code(code, openai_api_key):
     )
     return runnable.invoke({"code": code})
 
-def generate_inputs(code, code_explanation, openai_api_key):
+def generate_inputs(code, openai_api_key):
     prompt = PromptTemplate.from_template(
             """
             You are an artificial intelligence language model which goal is to generate example inputs to be used within a given code.
 
             Code: def multiply(a:float, b:float) -> float: return a*b
-            Code explanation: This code performs multiplication of two float inputs.
-            Example Inputs: a=5, b=10
+            Example Inputs: a=5.1, b=10.2
 
             Code: def create_df(address_list:list[str], num_list:list[int]) -> pd.DataFrame: return pd.DataFrame("address": address_list, "num": num_list)
-            Code explanation: This code creates a dataframe from a list of addresses and numbers related to those addresses.
             Example Inputs: address_list=["rue de la fontaine"], num_list=[10]
 
             Code: {code}
-            Code explanation: {code_explanation}
             Example Inputs:"""
     )
     runnable = (
@@ -39,7 +36,7 @@ def generate_inputs(code, code_explanation, openai_api_key):
     | ChatOpenAI(openai_api_key=openai_api_key, temperature=0)
     | StrOutputParser()
     )
-    return runnable.invoke({"code": code, "code_explanation": code_explanation})
+    return runnable.invoke({"code": code})
 
 def generate_unittest(code, code_explanation, inputs, openai_api_key):
     prompt = PromptTemplate.from_template(
