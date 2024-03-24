@@ -12,7 +12,7 @@ def code_generation(code, openai_api_key):
         **Input Code Snippet**:
         ```python
         {code}
-        # TODO: Implement the logic to determine if any two numbers are closer than the threshold
+        # TODO: Implement the necessary logic
         pass
         # Add your code here to complete the function
         ```
@@ -24,7 +24,7 @@ def code_generation(code, openai_api_key):
     )
     runnable = (
     prompt
-    | ChatOpenAI(model_name="gpt-4-0125-preview", openai_api_key=openai_api_key, temperature=0)
+    | ChatOpenAI(model_name="gpt-4", openai_api_key=openai_api_key, temperature=0)
     | StrOutputParser()
     )
     return runnable.invoke({"code": code})
@@ -53,7 +53,7 @@ def test_generation(code, openai_api_key):
     )
     runnable = (
     prompt
-    | ChatOpenAI(model_name="gpt-4-0125-preview", openai_api_key=openai_api_key, temperature=0)
+    | ChatOpenAI(model_name="gpt-4", openai_api_key=openai_api_key, temperature=0)
     | StrOutputParser()
     )
     return runnable.invoke({"code": code})
