@@ -43,6 +43,8 @@ def generate_inputs(code, code_explanation, openai_api_key):
     )
     return runnable.invoke({"code": code, "code_explanation": code_explanation})
 
+
+
 def generate_unittest_advanced(code, code_explanation, inputs, outputs, openai_api_key):
     prompt = PromptTemplate.from_template(
         """
@@ -51,7 +53,7 @@ def generate_unittest_advanced(code, code_explanation, inputs, outputs, openai_a
         Code explanation: {code_explanation}
         Input_list: {inputs}
         Output_list: {outputs}
-        Only return the test class, without adding the code function. Let's think step by step.
+        Only return the test class, without any imports or function definition.
         Unittest Code:"""
     )
     runnable = (

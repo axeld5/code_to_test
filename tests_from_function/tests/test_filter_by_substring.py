@@ -1,40 +1,17 @@
-import unittest
-from typing import List
+from typing import List, Tuple
 
-def filter_by_substring(strings: List[str], substring: str) -> List[str]:
-    return [x for x in strings if substring in x]
+
+from ..my_code import filter_by_substring
+import unittest
 
 class TestFilterBySubstring(unittest.TestCase):
 
-    def test_example_1(self):
-        input_strings = ["apple", "banana", "cherry"]
-        input_substring = "an"
-        expected_output = ["banana"]
-        self.assertEqual(filter_by_substring(input_strings, input_substring), expected_output)
-
-    def test_example_2(self):
-        input_strings = ["hello", "world", "python"]
-        input_substring = "o"
-        expected_output = ["hello", "world", "python"]
-        self.assertEqual(filter_by_substring(input_strings, input_substring), expected_output)
-
-    def test_example_3(self):
-        input_strings = ["cat", "dog", "rabbit"]
-        input_substring = "at"
-        expected_output = ["cat"]
-        self.assertEqual(filter_by_substring(input_strings, input_substring), expected_output)
-
-    def test_example_4(self):
-        input_strings = ["sun", "moon", "stars"]
-        input_substring = "moon"
-        expected_output = ["moon"]
-        self.assertEqual(filter_by_substring(input_strings, input_substring), expected_output)
-
-    def test_example_5(self):
-        input_strings = ["car", "bike", "bus"]
-        input_substring = "truck"
-        expected_output = []
-        self.assertEqual(filter_by_substring(input_strings, input_substring), expected_output)
+    def test_filter_by_substring(self):
+        self.assertEqual(filter_by_substring(["apple", "banana", "cherry"], "an"), ['banana'])
+        self.assertEqual(filter_by_substring(["hello", "world", "python"], "o"), ['hello', 'world', 'python'])
+        self.assertEqual(filter_by_substring(["cat", "dog", "fish"], "g"), ['dog'])
+        self.assertEqual(filter_by_substring(["sun", "moon", "stars"], "s"), ['sun', 'stars'])
+        self.assertEqual(filter_by_substring(["car", "bike", "bus"], "k"), ['bike'])
 
 if __name__ == '__main__':
     unittest.main()

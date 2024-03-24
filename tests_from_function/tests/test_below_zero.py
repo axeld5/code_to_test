@@ -1,27 +1,14 @@
-import unittest
-
 from typing import List, Tuple
 
-def below_zero(operations: List[int]) -> bool:
-    balance = 0
 
-    for op in operations:
-        balance += op
-        if balance < 0:
-            return True
-
-    return False
+from ..my_code import below_zero
+import unittest
 
 class TestBelowZero(unittest.TestCase):
 
-    def test_below_zero_false(self):
-        self.assertEqual(below_zero([1, 2, 3, -6, 5]), False)
-        self.assertEqual(below_zero([10, -5, 3, 2, -8]), False)
-        self.assertEqual(below_zero([0, 0, 0, 0, 0]), False)
-
-    def test_below_zero_true(self):
+    def test_below_zero(self):
+        self.assertEqual(below_zero([1, 2, 3, 4, 5]), False)
         self.assertEqual(below_zero([-1, -2, -3, -4, -5]), True)
-        self.assertEqual(below_zero([100, 50, -200, 150, 75]), True)
-
-if __name__ == '__main__':
-    unittest.main()
+        self.assertEqual(below_zero([10, -5, 3, -2, 1]), False)
+        self.assertEqual(below_zero([100, 200, -300, 400, -500]), True)
+        self.assertEqual(below_zero([0, 0, 0, 0, 0]), False)
