@@ -2,7 +2,8 @@ import yaml
 from helpers import execute_function_from_string, get_function_name
 from openai_code import explain_code, generate_inputs, generate_unittest_advanced
 
-def unittest_from_file(file_path:str, openai_api_key:str):
+def unittest_from_file(file_path:str, openai_api_key:str) -> None:
+    """Generates unittests for each function in the file, given a file_path and an api_key. Functions are assumed to have their definition starting with def."""
     with open(file_path, "r") as file:
         python_code = file.read()
     code_split = python_code.split("\ndef")
