@@ -43,32 +43,16 @@ def generate_inputs(code, code_explanation, openai_api_key):
     )
     return runnable.invoke({"code": code, "code_explanation": code_explanation})
 
-def generate_unittest(code, code_explanation, openai_api_key):
-    prompt = PromptTemplate.from_template(
-            """
-            You are an artificial intelligence language model which goal is to generate a unittest code from a piece of code, using the mentioned inputs. You can help yourself from the code explanation.
-            Code: {code}
-            Code explanation: {code_explanation}
-            Only return the test class. Do not return anything else. Let's think step by step.
-            Unittest Code:"""
-    )
-    runnable = (
-    prompt
-    | ChatOpenAI(openai_api_key=openai_api_key, temperature=0)
-    | StrOutputParser()
-    )
-    return runnable.invoke({"code": code, "code_explanation": code_explanation})
-
 def generate_unittest_advanced(code, code_explanation, inputs, outputs, openai_api_key):
     prompt = PromptTemplate.from_template(
-            """
-            You are an artificial intelligence language model which goal is to generate a unittest code from a piece of code, using the mentioned inputs and their related outputs. You can help yourself from the code explanation.
-            Code: {code}
-            Code explanation: {code_explanation}
-            Input_list: {inputs}
-            Output_list: {outputs}
-            Only return the test class. Do not return anything else. Let's think step by step.
-            Unittest Code:"""
+        """
+        You are an artificial intelligence language model which goal is to generate a unittest code from a piece of code, using the mentioned inputs and their related outputs. You can help yourself from the code explanation.
+        Code: {code}
+        Code explanation: {code_explanation}
+        Input_list: {inputs}
+        Output_list: {outputs}
+        Only return the test class, without adding the code function. Let's think step by step.
+        Unittest Code:"""
     )
     runnable = (
     prompt
