@@ -2,7 +2,8 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.schema import StrOutputParser
 
-def explain_code(code, openai_api_key):
+def explain_code(code:str, openai_api_key:str) -> str:
+    """Generation of a code explanation given code file and openai key"""
     prompt = PromptTemplate.from_template(
             """
             You are an artificial intelligence language model which goal is to explain a code piece, given the full code.
@@ -17,7 +18,8 @@ def explain_code(code, openai_api_key):
     )
     return runnable.invoke({"code": code})
 
-def generate_inputs(code, code_explanation, openai_api_key):
+def generate_inputs(code:str, code_explanation:str, openai_api_key:str) -> str:
+    """Generation of a list of inputs given code text, code explanation and openai key"""
     prompt = PromptTemplate.from_template(
             """
             You are an artificial intelligence language model which goal is to generate a list of at least 5 example inputs to be used within a given code.
@@ -43,7 +45,8 @@ def generate_inputs(code, code_explanation, openai_api_key):
     )
     return runnable.invoke({"code": code, "code_explanation": code_explanation})
 
-def generate_unittest_advanced(code, code_explanation, inputs, outputs, openai_api_key):
+def generate_unittest_advanced(code:str, code_explanation:str, inputs:str, outputs:str, openai_api_key:str) -> str:
+    """Generation of unittests given code text, code explanation, inputs, outputs and openai key"""
     prompt = PromptTemplate.from_template(
         """
         You are an artificial intelligence language model which goal is to generate a unittest code from a piece of code, using the mentioned inputs and their related outputs. You can help yourself from the code explanation.
@@ -51,7 +54,7 @@ def generate_unittest_advanced(code, code_explanation, inputs, outputs, openai_a
         Code explanation: {code_explanation}
         Input_list: {inputs}
         Output_list: {outputs}
-        Only return the test class, without adding the code function. Let's think step by step.
+        Only return the test class, without any imports or function definition.
         Unittest Code:"""
     )
     runnable = (

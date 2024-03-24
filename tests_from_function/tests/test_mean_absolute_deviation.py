@@ -1,18 +1,17 @@
-import unittest
 from typing import List, Tuple
 
-def mean_absolute_deviation(numbers: List[float]) -> float:
-    mean = sum(numbers) / len(numbers)
-    return sum(abs(x - mean) for x in numbers) / len(numbers)
+
+from ..my_code import mean_absolute_deviation
+import unittest
 
 class TestMeanAbsoluteDeviation(unittest.TestCase):
 
     def test_mean_absolute_deviation(self):
-        input_list = [(1.5, 2.5, 3.5, 4.5), (10.0, 20.0, 30.0, 40.0, 50.0), (0.1, 0.2, 0.3, 0.4, 0.5), (-5.5, -4.5, -3.5, -2.5, -1.5), (100.5, 200.5, 300.5, 400.5)]
-        output_list = [1.0, 12.0, 0.12, 1.2, 100.0]
-
-        for i in range(len(input_list)):
-            self.assertEqual(mean_absolute_deviation(list(input_list[i])), output_list[i])
+        self.assertAlmostEqual(mean_absolute_deviation([1.0, 2.0, 3.0, 4.0, 5.0]), 1.2)
+        self.assertAlmostEqual(mean_absolute_deviation([10.5, 20.7, 15.3, 18.9]), 3.45)
+        self.assertAlmostEqual(mean_absolute_deviation([-5.0, -2.0, 0.0, 3.0, 5.0]), 3.04)
+        self.assertAlmostEqual(mean_absolute_deviation([100.0, 200.0, 150.0, 120.0]), 32.5)
+        self.assertAlmostEqual(mean_absolute_deviation([3.14, 2.71, 1.618, 0.577]), 0.91375)
 
 if __name__ == '__main__':
     unittest.main()
